@@ -12,7 +12,7 @@ const app = express();
 // Connect to MongoDB
 connectDb();
 
-// Parse JSON bodies
+// Middleware
 app.use(express.json());
 
 // Define Routes
