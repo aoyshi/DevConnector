@@ -1,11 +1,13 @@
 const { body, validationResult } = require('express-validator');
 
+const User = require('./model.js');
+
 const userCreationRules = () => [
   body('name').trim()
     .not().isEmpty()
     .withMessage('Name is required.')
     .bail()
-    .isLength({ min: 5, max: 50})
+    .isLength({ min: 5, max: 50 })
     .withMessage('Name must be between 5 and 50 characters.')
     .bail()
     .isAlphanumeric()
@@ -15,7 +17,14 @@ const userCreationRules = () => [
     .withMessage('Email is required')
     .bail()
     .isEmail()
-    .withMessage('Invalid email address.'),
+    .withMessage('Invalid email address.')
+    .bail()
+    .custom((email) => User.findOne({ email }).then((user) => {
+      if (user) {
+        return Promise.reject(new Error('This email already exists.'));
+      }
+      return true;
+    })),
   body('password')
     .not().isEmpty()
     .withMessage('Password is required.')
