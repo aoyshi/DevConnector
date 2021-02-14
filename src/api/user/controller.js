@@ -1,26 +1,10 @@
-const jwt = require('jsonwebtoken');
-const config = require('config');
-
 const userService = require('./service.js');
-
-const createJwtToken = (user) => {
-  const payload = {
-    user: {
-      id: user.id,
-    },
-  };
-  const token = jwt.sign(
-    payload,
-    config.get('jwtSecret'),
-    { expiresIn: 360000 },
-  );
-  return token;
-};
+const authHelper = require('../auth/helper.js');
 
 const createUser = async (req, res) => {
   try {
     const user = await userService.createUser(req);
-    const token = createJwtToken(user);
+    const token = authHelper.createJwtToken(user);
 
     res.status(201).send({ token });
   } catch (err) {
