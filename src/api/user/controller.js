@@ -1,30 +1,28 @@
-const gravatar = require('gravatar');
-const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
-const User = require('./model.js');
+const userService = require('./service.js');
+
+const createJwtToken = (user) => {
+  const payload = {
+    user: {
+      id: user.id,
+    },
+  };
+  const token = jwt.sign(
+    payload,
+    config.get('jwtSecret'),
+    { expiresIn: 360000 },
+  );
+  return token;
+};
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const user = await userService.createUser(req);
+    const token = createJwtToken(user);
 
-    const avatar = gravatar.url(email, {
-      s: '200',
-      r: 'pg',
-      d: 'identicon',
-    });
-
-    const salt = await bcrypt.genSalt(10);
-    const encryptedPassword = await bcrypt.hash(password, salt);
-
-    const user = new User({
-      name,
-      email,
-      password: encryptedPassword,
-      avatar,
-    });
-
-    await user.save();
-    res.status(201).send('User created successfully.');
+    res.status(201).send({ token });
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server Error');
