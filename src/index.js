@@ -1,10 +1,10 @@
 const express = require('express');
 const connectDb = require('../database/mongoDb');
 
-const userRoute = require('./api/user/route');
-const authRoute = require('./api/auth/route');
-const profileRoute = require('./api/profile/route');
-const postsRoute = require('./api/post/route');
+const userRoute = require('./api/user/user.route');
+const authRoute = require('./api/auth/auth.route');
+const profileRoute = require('./api/profile/profile.route');
+const postRoute = require('./api/post/post.route');
 
 const PORT = process.env.PORT || 7000;
 const app = express();
@@ -20,7 +20,7 @@ app.get('/', (req, res) => res.send('API Running...'));
 
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
-app.use('/api/posts', postsRoute);
+app.use('/api/posts', postRoute);
 app.use('/api/profiles', profileRoute);
 
 app.listen(PORT, () => {
