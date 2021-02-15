@@ -13,6 +13,12 @@ const getCurrentProfile = async (req, res) => {
   }
 };
 
+const upsertProfile = async (req, res) => {
+  const profile = await profileService.upsertProfile(req);
+  res.status(201).json({ profile });
+};
+
 module.exports = {
   getCurrentProfile,
+  upsertProfile,
 };
