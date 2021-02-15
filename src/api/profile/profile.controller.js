@@ -1,4 +1,4 @@
-const Profile = require('./model.js');
+const Profile = require('./profile.model.js');
 
 const getCurrentProfile = async (req, res) => {
   try {
@@ -13,6 +13,7 @@ const getCurrentProfile = async (req, res) => {
     res.status(500).send('Server Error.');
   }
 };
+
 
 module.exports = {
   getCurrentProfile,

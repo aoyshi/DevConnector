@@ -1,14 +1,14 @@
 const express = require('express');
 
-const profileController = require('./controller.js');
+const profileController = require('./profile.controller.js');
 const authMiddleware = require('../../../middleware/auth.js');
 const router = express.Router();
 
 /*
- * @route    GET api/profile/me
+ * @route    GET api/profile/current
  * @desc     Returns current user's profile
- * @access   Public
+ * @access   Private
  */
-router.get('/me', authMiddleware, profileController.getCurrentProfile);
+router.get('/current', authMiddleware, profileController.getCurrentProfile);
 
 module.exports = router;
