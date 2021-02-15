@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-const User = require('./model.js');
+const User = require('./user.model');
 
 const userCreationRules = () => [
   body('name').trim()
