@@ -1,7 +1,7 @@
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 
-const User = require('./model.js');
+const User = require('./user.model');
 
 const createUser = async (req) => {
   const { name, email, password } = req.body;
