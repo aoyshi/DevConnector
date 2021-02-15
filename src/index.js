@@ -21,7 +21,7 @@ app.get('/', (req, res) => res.send('API Running...'));
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postsRoute);
-app.use('/api/profile', profileRoute);
+app.use('/api/profiles', profileRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
