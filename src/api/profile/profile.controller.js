@@ -6,10 +6,10 @@ const getCurrentProfile = async (req, res) => {
     if (!profile) {
       return res.status(404).json({ msg: 'This user does not have a profile.' });
     }
-    res.status(200).json({ profile });
+    return res.status(200).json({ profile });
   } catch (err) {
     console.log(err.message);
-    res.status(500).send('Server Error.');
+    return res.status(500).send('Server Error.');
   }
 };
 

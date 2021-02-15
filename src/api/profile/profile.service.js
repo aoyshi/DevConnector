@@ -14,9 +14,9 @@ const buildProfileFields = (req) => {
 
   const profileFields = {
     user: req.user.id,
-    website: website ? website : '',
+    website: website || '',
     skills: skills.split(',').map((skill) => skill.trim()),
-    ...rest
+    ...rest,
   };
   const socialFields = {
     youtube,

@@ -3,6 +3,7 @@ const express = require('express');
 const profileController = require('./profile.controller.js');
 const authMiddleware = require('../../../middleware/auth.js');
 const { profileCreationRules, validate } = require('./profile.validator');
+
 const router = express.Router();
 
 /*
