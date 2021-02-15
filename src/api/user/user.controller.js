@@ -1,10 +1,9 @@
 const userService = require('./user.service.js');
 const authHelper = require('../auth/auth.helper.js');
-const User = require('./user.model.js');
 
 const getCurrentUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await userService.getUser(req.user.id);
     res.status(200).json({ user });
   } catch (err) {
     console.log(err.message);
