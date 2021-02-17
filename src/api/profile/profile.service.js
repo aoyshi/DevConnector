@@ -53,9 +53,46 @@ const deleteProfileByUserId = async (userId) => {
   await Profile.findOneAndDelete({ user: userId });
 };
 
+// EXPERIENCES
+
+const createExperience = async (req, profile) => {
+  const {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description,
+  } = req.body;
+
+  const experience = {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description,
+  };
+
+  profile.experience.unshift(experience);
+  await profile.save();
+
+  return profile;
+};
+
+const deleteExperience = async (expId, profile) => {
+  const removeIndex = profile.experience.map((exp) => exp.id).indexOf(expId);
+  profile.experience.splice(removeIndex, 1);
+  await profile.save();
+};
+
 module.exports = {
   getProfileByUserId,
   upsertProfile,
   getAllProfiles,
   deleteProfileByUserId,
+  createExperience,
+  deleteExperience,
 };
