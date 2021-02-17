@@ -15,8 +15,13 @@ const getCurrentProfile = async (req, res) => {
 };
 
 const upsertProfile = async (req, res) => {
-  const profile = await profileService.upsertProfile(req);
-  res.status(201).json({ profile });
+  try {
+    const profile = await profileService.upsertProfile(req);
+    res.status(201).json({ profile });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server Error.');
+  }
 };
 
 const getUserProfile = async (req, res) => {
@@ -57,10 +62,42 @@ const deleteEverything = async (req, res) => {
   }
 };
 
+// EXPERIENCES
+
+const createExperience = async (req, res) => {
+  try {
+    const profile = await profileService.getProfileByUserId(req.user.id);
+    if (!profile) {
+      return res.status(404).json({ msg: 'This user does not have a profile.' });
+    }
+    const updatedProfile = await profileService.createExperience(req, profile);
+    return res.status(201).json({ updatedProfile });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send('Server Error.');
+  }
+};
+
+const deleteExperience = async (req, res) => {
+  try {
+    const profile = await profileService.getProfileByUserId(req.user.id);
+    if (!profile) {
+      return res.status(404).json({ msg: 'This user does not have a profile.' });
+    }
+    await profileService.deleteExperience(req.params.id, profile);
+    return res.status(200).send('Deleted experience from current profile.');
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send('Server Error.');
+  }
+};
+
 module.exports = {
   getCurrentProfile,
   upsertProfile,
   getUserProfile,
   getAllProfiles,
   deleteEverything,
+  createExperience,
+  deleteExperience,
 };

@@ -2,7 +2,7 @@ const express = require('express');
 
 const profileController = require('./profile.controller.js');
 const authMiddleware = require('../../../middleware/auth.js');
-const { profileCreationRules, validate } = require('./profile.validator');
+const { profileCreationRules, experienceCreationRules, experienceDeletionRules, validate } = require('./profile.validator');
 
 const router = express.Router();
 
@@ -40,5 +40,19 @@ router.get('/users/:id', profileController.getUserProfile);
  * @access   Private
  */
 router.delete('/', authMiddleware, profileController.deleteEverything);
+
+/*
+ * @route    POST api/profiles/experiences
+ * @desc     Add experience to current profile
+ * @access   Private
+ */
+router.post('/experiences', authMiddleware, experienceCreationRules(), validate, profileController.createExperience);
+
+/*
+ * @route    DELETE api/profiles/experiences/:expId
+ * @desc     Delete experience from current profile
+ * @access   Private
+ */
+router.delete('/experiences/:id', authMiddleware, experienceDeletionRules(), validate, profileController.deleteExperience);
 
 module.exports = router;

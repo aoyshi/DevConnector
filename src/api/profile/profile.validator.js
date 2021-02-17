@@ -1,4 +1,5 @@
-const { body, validationResult } = require('express-validator');
+const { body, param, validationResult } = require('express-validator');
+const { ObjectId } = require('mongoose').Types;
 
 const profileCreationRules = () => [
   body('status').trim()
@@ -7,6 +8,27 @@ const profileCreationRules = () => [
   body('skills').trim()
     .not().isEmpty()
     .withMessage('Skills is required'),
+];
+
+const experienceCreationRules = () => [
+  body('title').trim()
+    .not().isEmpty()
+    .withMessage('Title is required.'),
+  body('company').trim()
+    .not().isEmpty()
+    .withMessage('Company is required'),
+  body('from').trim()
+    .not().isEmpty()
+    .withMessage('From Date is required'),
+];
+
+const experienceDeletionRules = () => [
+  param('id').custom((value) => {
+    if (!ObjectId.isValid(value)) {
+      throw new Error('experiences/:id param must be a valid mongoose objectId.');
+    }
+    return true;
+  }),
 ];
 
 const validate = (req, res, next) => {
@@ -22,5 +44,7 @@ const validate = (req, res, next) => {
 
 module.exports = {
   profileCreationRules,
+  experienceCreationRules,
+  experienceDeletionRules,
   validate,
 };
