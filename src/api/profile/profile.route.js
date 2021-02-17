@@ -7,17 +7,31 @@ const { profileCreationRules, validate } = require('./profile.validator');
 const router = express.Router();
 
 /*
- * @route    GET api/profiles/current
- * @desc     Returns current user's profile
- * @access   Private
- */
-router.get('/current', authMiddleware, profileController.getCurrentProfile);
-
-/*
  * @route    POST api/profiles
- * @desc     Creates current user's profile, or updates if already exists
+ * @desc     Creates current user's profile, or Updates if already exists
  * @access   Private
  */
 router.post('/', authMiddleware, profileCreationRules(), validate, profileController.upsertProfile);
+
+/*
+ * @route    GET api/profiles/me
+ * @desc     Returns current user's profile
+ * @access   Private
+ */
+router.get('/me', authMiddleware, profileController.getCurrentProfile);
+
+/*
+ * @route    GET api/profiles
+ * @desc     Returns list of all user's profiles
+ * @access   Public
+ */
+router.get('/', profileController.getAllProfiles);
+
+/*
+ * @route    GET api/profiles/users/:id
+ * @desc     Returns single profile by user id
+ * @access   Public
+ */
+router.get('/users/:id', profileController.getUserProfile);
 
 module.exports = router;

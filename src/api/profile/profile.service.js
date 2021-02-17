@@ -40,11 +40,17 @@ const upsertProfile = async (req) => {
 };
 
 const getProfileByUserId = async (userId) => {
-  const profile = await Profile.findOne({ user: userId });
+  const profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar']);
+  return profile;
+};
+
+const getAllProfiles = async () => {
+  const profile = await Profile.find().populate('user', ['name', 'avatar']);
   return profile;
 };
 
 module.exports = {
   getProfileByUserId,
   upsertProfile,
+  getAllProfiles,
 };
