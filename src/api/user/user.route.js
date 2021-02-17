@@ -17,6 +17,6 @@ router.post('/', userCreationRules(), validate, userController.createUser);
  * @desc     Get currently logged in user based on token
  * @access   Private
  */
-router.get('/current', authMiddleware, userController.getCurrentUser);
+router.get('/me', authMiddleware, userController.getCurrentUser);
 
 module.exports = router;
