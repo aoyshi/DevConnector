@@ -27,7 +27,12 @@ const createUser = async (req) => {
   return user;
 };
 
+const deleteUser = async (id) => {
+  await User.findOneAndDelete({ _id: id });
+};
+
 module.exports = {
   createUser,
   getUser,
+  deleteUser,
 };

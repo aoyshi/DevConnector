@@ -1,4 +1,5 @@
 const profileService = require('./profile.service');
+const userService = require('../user/user.service');
 
 const getCurrentProfile = async (req, res) => {
   try {
@@ -37,10 +38,22 @@ const getUserProfile = async (req, res) => {
 const getAllProfiles = async (req, res) => {
   try {
     const profiles = await profileService.getAllProfiles();
-    return res.status(200).send(profiles);
+    res.status(200).send(profiles);
   } catch (err) {
     console.log(err.message);
-    return res.status(500).send('Server Error.');
+    res.status(500).send('Server Error.');
+  }
+};
+
+const deleteEverything = async (req, res) => {
+  try {
+    await profileService.deleteProfileByUserId(req.user.id);
+    await userService.deleteUser(req.user.id);
+    // TODO: delete user's POSTS
+    res.status(200).json({ msg: 'Deleted current user profile.' });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server Error.');
   }
 };
 
@@ -49,4 +62,5 @@ module.exports = {
   upsertProfile,
   getUserProfile,
   getAllProfiles,
+  deleteEverything,
 };

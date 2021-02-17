@@ -49,8 +49,13 @@ const getAllProfiles = async () => {
   return profile;
 };
 
+const deleteProfileByUserId = async (userId) => {
+  await Profile.findOneAndDelete({ user: userId });
+};
+
 module.exports = {
   getProfileByUserId,
   upsertProfile,
   getAllProfiles,
+  deleteProfileByUserId,
 };
