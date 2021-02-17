@@ -34,4 +34,11 @@ router.get('/', profileController.getAllProfiles);
  */
 router.get('/users/:id', profileController.getUserProfile);
 
+/*
+ * @route    DELETE api/profiles
+ * @desc     Deletes current user, profile & posts
+ * @access   Private
+ */
+router.delete('/', authMiddleware, profileController.deleteEverything);
+
 module.exports = router;
