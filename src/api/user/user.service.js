@@ -2,9 +2,23 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 
 const User = require('./user.model');
+const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
 
-const getUser = async (id) => {
+const verifyUserExists = (user) => {
+  if (!user) {
+    throw ResourceNotFoundError('user');
+  }
+};
+
+const getUserById = async (id) => {
   const user = await User.findById(id).select('-password');
+  verifyUserExists(user);
+  return user;
+};
+
+const getUserByEmail = async (email) => {
+  const user = await User.findOne({ email });
+  verifyUserExists(user);
   return user;
 };
 
@@ -33,6 +47,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
   createUser,
-  getUser,
+  getUserById,
+  getUserByEmail,
   deleteUser,
 };

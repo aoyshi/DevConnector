@@ -1,5 +1,13 @@
 const Profile = require('./profile.model.js');
 
+const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
+
+const verifyProfileExists = (profile) => {
+  if (!profile) {
+    throw ResourceNotFoundError('profile');
+  }
+};
+
 const buildProfileFields = (req) => {
   const {
     website,
@@ -41,6 +49,7 @@ const upsertProfile = async (req) => {
 
 const getProfileByUserId = async (userId) => {
   const profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar']);
+  verifyProfileExists(profile);
   return profile;
 };
 

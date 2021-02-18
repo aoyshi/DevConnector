@@ -21,7 +21,7 @@ const userCreationRules = () => [
     .bail()
     .custom((email) => User.findOne({ email }).then((user) => {
       if (user) {
-        return Promise.reject(new Error('This email already exists.'));
+        return Promise.reject(new Error('This email is already registered.'));
       }
       return true;
     })),
