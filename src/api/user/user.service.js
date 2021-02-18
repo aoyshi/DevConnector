@@ -2,7 +2,7 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 
 const User = require('./user.model');
-const ResourceNotFoundError = require('../../utils/exceptions/ResourceNotFoundError');
+const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
 
 const verifyUserExists = (user) => {
   if (!user) {

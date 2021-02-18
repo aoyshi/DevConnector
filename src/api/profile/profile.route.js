@@ -38,7 +38,7 @@ router.get('/', profileController.getAllProfiles);
  * @desc     Returns single profile by user id
  * @access   Public
  */
-router.get('/users/:id', profileController.getUserProfile);
+router.get('/users/:id', mongooseObjectIdRules(), validate, profileController.getUserProfile);
 
 /*
  * @route    DELETE api/profiles

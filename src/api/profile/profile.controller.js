@@ -5,10 +5,7 @@ const errorHandler = require('../../utils/errorHandling/errorHandler.js');
 const getCurrentProfile = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: 'This user does not have a profile.' });
-    }
-    return res.status(200).json({ profile });
+    res.status(200).json({ profile });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -17,7 +14,7 @@ const getCurrentProfile = async (req, res) => {
 const upsertProfile = async (req, res) => {
   try {
     const profile = await profileService.upsertProfile(req);
-    res.status(201).json({ profile });
+    res.status(200).json({ profile });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -26,14 +23,8 @@ const upsertProfile = async (req, res) => {
 const getUserProfile = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.params.id);
-    if (!profile) {
-      return res.status(404).json({ msg: 'This user does not have a profile.' });
-    }
-    return res.status(200).json({ profile });
+    res.status(200).json({ profile });
   } catch (err) {
-    if (err.kind === 'ObjectId') {
-      return res.status(400).json({ msg: 'Invalid format for user ID.' });
-    }
     errorHandler(res, err);
   }
 };
@@ -63,11 +54,8 @@ const deleteEverything = async (req, res) => {
 const createExperience = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: 'This user does not have a profile.' });
-    }
     const updatedProfile = await profileService.createExperience(req, profile);
-    return res.status(201).json({ updatedProfile });
+    res.status(201).json({ updatedProfile });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -76,11 +64,8 @@ const createExperience = async (req, res) => {
 const deleteExperience = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: 'This user does not have a profile.' });
-    }
     await profileService.deleteExperience(req.params.id, profile);
-    return res.status(200).send('Deleted experience from current profile.');
+    res.status(201).send('Deleted experience from current profile.');
   } catch (err) {
     errorHandler(res, err);
   }
@@ -91,11 +76,8 @@ const deleteExperience = async (req, res) => {
 const createEducation = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: 'This user does not have a profile.' });
-    }
     const updatedProfile = await profileService.createEducation(req, profile);
-    return res.status(201).json({ updatedProfile });
+    res.status(201).json({ updatedProfile });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -104,11 +86,8 @@ const createEducation = async (req, res) => {
 const deleteEducation = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: 'This user does not have a profile.' });
-    }
     await profileService.deleteEducation(req.params.id, profile);
-    return res.status(200).send('Deleted education from current profile.');
+    res.status(201).send('Deleted education from current profile.');
   } catch (err) {
     errorHandler(res, err);
   }

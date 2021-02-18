@@ -1,7 +1,5 @@
 const getHttpCode = (errName) => {
-  if (errName === 'RequestFormatError') return 400;
   if (errName === 'ResourceNotFoundError') return 404;
-  if (errName === 'ResourceAlreadyExists') return 409;
   if (errName === 'AuthenticationError') return 401;
   return 500;
 };
