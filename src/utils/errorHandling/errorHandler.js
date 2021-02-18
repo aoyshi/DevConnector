@@ -1,6 +1,13 @@
+const getHttpCode = (errName) => {
+  if (errName === 'RequestFormatError') return 400;
+  if (errName === 'ResourceNotFoundError') return 404;
+  if (errName === 'ResourceAlreadyExists') return 409;
+  if (errName === 'AuthenticationError') return 401;
+  return 500;
+};
+
 const errorHandler = (res, err) => {
-  console.log(err.message);
-  res.status(500).send('Server Error');
+  res.status(getHttpCode(err.name)).send(err.message);
 };
 
 module.exports = errorHandler;

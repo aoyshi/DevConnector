@@ -4,7 +4,7 @@ const errorHandler = require('../../utils/errorHandling/errorHandler.js');
 
 const getCurrentUser = async (req, res) => {
   try {
-    const user = await userService.getUser(req.user.id);
+    const user = await userService.getUserById(req.user.id);
     res.status(200).json({ user });
   } catch (err) {
     errorHandler(res, err);
