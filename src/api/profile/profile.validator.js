@@ -22,10 +22,25 @@ const experienceCreationRules = () => [
     .withMessage('From Date is required'),
 ];
 
-const experienceDeletionRules = () => [
+const educationCreationRules = () => [
+  body('school').trim()
+    .not().isEmpty()
+    .withMessage('School is required.'),
+  body('degree').trim()
+    .not().isEmpty()
+    .withMessage('Degree is required'),
+  body('fieldOfStudy').trim()
+    .not().isEmpty()
+    .withMessage('Field of study is required'),
+  body('from').trim()
+    .not().isEmpty()
+    .withMessage('From Date is required'),
+];
+
+const mongooseObjectIdRules = () => [
   param('id').custom((value) => {
     if (!ObjectId.isValid(value)) {
-      throw new Error('experiences/:id param must be a valid mongoose objectId.');
+      throw new Error('/:id param must be a valid mongoose objectId.');
     }
     return true;
   }),
@@ -45,6 +60,7 @@ const validate = (req, res, next) => {
 module.exports = {
   profileCreationRules,
   experienceCreationRules,
-  experienceDeletionRules,
+  educationCreationRules,
+  mongooseObjectIdRules,
   validate,
 };

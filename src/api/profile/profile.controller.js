@@ -92,6 +92,36 @@ const deleteExperience = async (req, res) => {
   }
 };
 
+// EDUCATION
+
+const createEducation = async (req, res) => {
+  try {
+    const profile = await profileService.getProfileByUserId(req.user.id);
+    if (!profile) {
+      return res.status(404).json({ msg: 'This user does not have a profile.' });
+    }
+    const updatedProfile = await profileService.createEducation(req, profile);
+    return res.status(201).json({ updatedProfile });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send('Server Error.');
+  }
+};
+
+const deleteEducation = async (req, res) => {
+  try {
+    const profile = await profileService.getProfileByUserId(req.user.id);
+    if (!profile) {
+      return res.status(404).json({ msg: 'This user does not have a profile.' });
+    }
+    await profileService.deleteEducation(req.params.id, profile);
+    return res.status(200).send('Deleted education from current profile.');
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send('Server Error.');
+  }
+};
+
 module.exports = {
   getCurrentProfile,
   upsertProfile,
@@ -100,4 +130,6 @@ module.exports = {
   deleteEverything,
   createExperience,
   deleteExperience,
+  createEducation,
+  deleteEducation,
 };
