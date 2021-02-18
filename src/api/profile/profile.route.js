@@ -2,7 +2,13 @@ const express = require('express');
 
 const profileController = require('./profile.controller.js');
 const authMiddleware = require('../../../middleware/auth.js');
-const { profileCreationRules, experienceCreationRules, experienceDeletionRules, validate } = require('./profile.validator');
+const {
+  profileCreationRules,
+  experienceCreationRules,
+  mongooseObjectIdRules,
+  educationCreationRules,
+  validate,
+} = require('./profile.validator');
 
 const router = express.Router();
 
@@ -53,6 +59,20 @@ router.post('/experiences', authMiddleware, experienceCreationRules(), validate,
  * @desc     Delete experience from current profile
  * @access   Private
  */
-router.delete('/experiences/:id', authMiddleware, experienceDeletionRules(), validate, profileController.deleteExperience);
+router.delete('/experiences/:id', authMiddleware, mongooseObjectIdRules(), validate, profileController.deleteExperience);
+
+/*
+ * @route    POST api/profiles/educations
+ * @desc     Add education to current profile
+ * @access   Private
+ */
+router.post('/educations', authMiddleware, educationCreationRules(), validate, profileController.createEducation);
+
+/*
+ * @route    DELETE api/profiles/educations/:eduId
+ * @desc     Delete education from current profile
+ * @access   Private
+ */
+router.delete('/educations/:id', authMiddleware, mongooseObjectIdRules(), validate, profileController.deleteEducation);
 
 module.exports = router;

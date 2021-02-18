@@ -88,6 +88,41 @@ const deleteExperience = async (expId, profile) => {
   await profile.save();
 };
 
+// EDUCATION
+
+const createEducation = async (req, profile) => {
+  const {
+    school,
+    degree,
+    fieldOfStudy,
+    from,
+    to,
+    current,
+    description,
+  } = req.body;
+
+  const education = {
+    school,
+    degree,
+    fieldOfStudy,
+    from,
+    to,
+    current,
+    description,
+  };
+
+  profile.education.unshift(education);
+  await profile.save();
+
+  return profile;
+};
+
+const deleteEducation = async (eduId, profile) => {
+  const removeIndex = profile.education.map((edu) => edu.id).indexOf(eduId);
+  profile.education.splice(removeIndex, 1);
+  await profile.save();
+};
+
 module.exports = {
   getProfileByUserId,
   upsertProfile,
@@ -95,4 +130,6 @@ module.exports = {
   deleteProfileByUserId,
   createExperience,
   deleteExperience,
+  createEducation,
+  deleteEducation,
 };
