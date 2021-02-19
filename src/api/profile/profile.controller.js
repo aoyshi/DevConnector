@@ -32,7 +32,7 @@ const getUserProfile = async (req, res) => {
 const getAllProfiles = async (req, res) => {
   try {
     const profiles = await profileService.getAllProfiles();
-    res.status(200).send(profiles);
+    res.status(200).json(profiles);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -65,7 +65,7 @@ const deleteExperience = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
     await profileService.deleteExperience(req.params.id, profile);
-    res.status(201).send('Deleted experience from current profile.');
+    res.status(201).json('Deleted experience from current profile.');
   } catch (err) {
     errorHandler(res, err);
   }
@@ -87,7 +87,17 @@ const deleteEducation = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
     await profileService.deleteEducation(req.params.id, profile);
-    res.status(201).send('Deleted education from current profile.');
+    res.status(201).json('Deleted education from current profile.');
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
+// GITHUB
+const getGithubRepos = async (req, res) => {
+  try {
+    const repos = await profileService.getGithubRepos(req.params.username);
+    res.status(200).json(repos);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -103,4 +113,5 @@ module.exports = {
   deleteExperience,
   createEducation,
   deleteEducation,
+  getGithubRepos,
 };

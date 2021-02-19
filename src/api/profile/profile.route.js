@@ -75,4 +75,11 @@ router.post('/educations', authMiddleware, educationCreationRules(), validate, p
  */
 router.delete('/educations/:id', authMiddleware, mongooseObjectIdRules(), validate, profileController.deleteEducation);
 
+/*
+ * @route    GET api/profiles/github/:username
+ * @desc     Get github repos of user
+ * @access   Public
+ */
+router.get('/github/:username', profileController.getGithubRepos);
+
 module.exports = router;
