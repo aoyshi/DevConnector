@@ -1,5 +1,7 @@
-const Profile = require('./profile.model.js');
+const axios = require('axios');
+require('dotenv').config();
 
+const Profile = require('./profile.model.js');
 const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
 
 const verifyProfileExists = (profile) => {
@@ -132,6 +134,19 @@ const deleteEducation = async (eduId, profile) => {
   await profile.save();
 };
 
+const getGithubRepos = async (username, res) => {
+  const uri = `https://api.github.com/users/${username}/repos?pre_page=1&sort=created:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`;
+  const headers = { 'user-agent': 'node.js' };
+
+  try {
+    const response = await axios.get(uri, headers);
+    return response.data;
+  } catch (err) {
+    if (err.response.status === 404) throw ResourceNotFoundError('github repo');
+    console.log(err);
+  }
+};
+
 module.exports = {
   getProfileByUserId,
   upsertProfile,
@@ -141,4 +156,5 @@ module.exports = {
   deleteExperience,
   createEducation,
   deleteEducation,
+  getGithubRepos,
 };

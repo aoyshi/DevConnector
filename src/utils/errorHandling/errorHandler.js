@@ -5,7 +5,7 @@ const getHttpCode = (errName) => {
 };
 
 const errorHandler = (res, err) => {
-  res.status(getHttpCode(err.name)).send(err.message);
+  res.status(getHttpCode(err.name)).json(err.message);
 };
 
 module.exports = errorHandler;
