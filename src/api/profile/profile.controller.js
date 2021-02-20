@@ -53,9 +53,8 @@ const deleteEverything = async (req, res) => {
 
 const createExperience = async (req, res) => {
   try {
-    const profile = await profileService.getProfileByUserId(req.user.id);
-    const updatedProfile = await profileService.createExperience(req, profile);
-    res.status(201).json({ updatedProfile });
+    const profile = await profileService.createExperience(req);
+    res.status(201).json({ profile });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -63,9 +62,8 @@ const createExperience = async (req, res) => {
 
 const deleteExperience = async (req, res) => {
   try {
-    const profile = await profileService.getProfileByUserId(req.user.id);
-    await profileService.deleteExperience(req.params.id, profile);
-    res.status(201).json('Deleted experience from current profile.');
+    const updatedProfile = await profileService.deleteExperience(req.params.id, req.user.id);
+    res.status(201).json({ updatedProfile });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -85,9 +83,8 @@ const createEducation = async (req, res) => {
 
 const deleteEducation = async (req, res) => {
   try {
-    const profile = await profileService.getProfileByUserId(req.user.id);
-    await profileService.deleteEducation(req.params.id, profile);
-    res.status(201).json('Deleted education from current profile.');
+    const updatedProfile = await profileService.deleteEducation(req.params.id, req.user.id);
+    res.status(201).json({ updatedProfile });
   } catch (err) {
     errorHandler(res, err);
   }

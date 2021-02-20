@@ -66,7 +66,8 @@ const deleteProfileByUserId = async (userId) => {
 
 // EXPERIENCES
 
-const createExperience = async (req, profile) => {
+const createExperience = async (req) => {
+  const profile = await getProfileByUserId(req.user.id);
   const {
     title,
     company,
@@ -93,17 +94,20 @@ const createExperience = async (req, profile) => {
   return profile;
 };
 
-const deleteExperience = async (expId, profile) => {
-  const updatedProfile = profile;
-  updatedProfile.experience = profile.experience.filter(
+const deleteExperience = async (expId, userId) => {
+  const profile = await getProfileByUserId(userId);
+  profile.experience = profile.experience.filter(
     (exp) => exp.id.toString() !== expId,
   );
-  await updatedProfile.save();
+
+  await profile.save();
+  return profile;
 };
 
 // EDUCATION
 
-const createEducation = async (req, profile) => {
+const createEducation = async (req) => {
+  const profile = await getProfileByUserId(req.user.id);
   const {
     school,
     degree,
@@ -130,12 +134,13 @@ const createEducation = async (req, profile) => {
   return profile;
 };
 
-const deleteEducation = async (eduId, profile) => {
-  const updatedProfile = profile;
-  updatedProfile.education = profile.education.filter(
+const deleteEducation = async (eduId, userId) => {
+  const profile = await getProfileByUserId(userId);
+  profile.education = profile.education.filter(
     (edu) => edu.id.toString() !== eduId,
   );
-  await updatedProfile.save();
+  await profile.save();
+  return profile;
 };
 
 const getGithubRepos = async (username) => {
