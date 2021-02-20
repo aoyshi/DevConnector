@@ -7,19 +7,24 @@ const postCreationRules = () => [
     .withMessage('Text is required for posts.'),
 ];
 
+const mongooseObjectIdRules = (paramName = 'id') => [
+  param(paramName).custom((value) => {
+    if (!ObjectId.isValid(value)) {
+      throw new Error(`/:${paramName} param must be a valid mongoose objectId.`);
+    }
+    return true;
+  }),
+];
+
+const commentDeletionRules = () => [
+  mongooseObjectIdRules('postId'),
+  mongooseObjectIdRules('commentId'),
+];
+
 const commentCreationRules = () => [
   body('text').trim()
     .not().isEmpty()
     .withMessage('Text is required for comments.'),
-];
-
-const mongooseObjectIdRules = () => [
-  param('id').custom((value) => {
-    if (!ObjectId.isValid(value)) {
-      throw new Error('/:id param must be a valid mongoose objectId.');
-    }
-    return true;
-  }),
 ];
 
 const validate = (req, res, next) => {
@@ -37,5 +42,6 @@ module.exports = {
   postCreationRules,
   commentCreationRules,
   mongooseObjectIdRules,
+  commentDeletionRules,
   validate,
 };

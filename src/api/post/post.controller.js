@@ -37,19 +37,37 @@ const deletePostById = async (req, res) => {
   }
 };
 
-const likePostById = async (req, res) => {
+const likePost = async (req, res) => {
   try {
-    const likes = await postService.likePostById(req.params.id, req.user.id);
+    const likes = await postService.likePost(req.params.id, req.user.id);
     res.json(likes);
   } catch (err) {
     errorHandler(res, err);
   }
 };
 
-const unlikePostById = async (req, res) => {
+const unlikePost = async (req, res) => {
   try {
-    const likes = await postService.unlikePostById(req.params.id, req.user.id);
+    const likes = await postService.unlikePost(req.params.id, req.user.id);
     res.json(likes);
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
+const createComment = async (req, res) => {
+  try {
+    const comments = await postService.createComment(req);
+    res.json(comments);
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
+const deleteComment = async (req, res) => {
+  try {
+    const comments = await postService.deleteComment(req.params.postId, req.params.commentId, req.user.id);
+    res.json(comments);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -60,6 +78,8 @@ module.exports = {
   getAllPosts,
   getPostById,
   deletePostById,
-  likePostById,
-  unlikePostById,
+  likePost,
+  unlikePost,
+  createComment,
+  deleteComment,
 };
