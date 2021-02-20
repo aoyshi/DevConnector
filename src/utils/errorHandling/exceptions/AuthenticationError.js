@@ -1,6 +1,6 @@
 const AuthenticationError = () => ({
   name: 'AuthenticationError',
-  message: 'Authentication failed.',
+  message: 'Not authorized/authenticated.',
   stack: new Error().stack,
 });
 

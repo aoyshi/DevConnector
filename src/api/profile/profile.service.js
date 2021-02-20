@@ -94,9 +94,11 @@ const createExperience = async (req, profile) => {
 };
 
 const deleteExperience = async (expId, profile) => {
-  const removeIndex = profile.experience.map((exp) => exp.id).indexOf(expId);
-  profile.experience.splice(removeIndex, 1);
-  await profile.save();
+  const updatedProfile = profile;
+  updatedProfile.experience = profile.experience.filter(
+    (exp) => exp.id.toString() !== expId,
+  );
+  await updatedProfile.save();
 };
 
 // EDUCATION
@@ -129,9 +131,11 @@ const createEducation = async (req, profile) => {
 };
 
 const deleteEducation = async (eduId, profile) => {
-  const removeIndex = profile.education.map((edu) => edu.id).indexOf(eduId);
-  profile.education.splice(removeIndex, 1);
-  await profile.save();
+  const updatedProfile = profile;
+  updatedProfile.education = profile.education.filter(
+    (edu) => edu.id.toString() !== eduId,
+  );
+  await updatedProfile.save();
 };
 
 const getGithubRepos = async (username, res) => {
