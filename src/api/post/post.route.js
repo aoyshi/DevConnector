@@ -1,12 +1,41 @@
 const express = require('express');
 
+const authMiddleware = require('../../../middleware/auth');
+const { 
+  postCreationRules,
+  mongooseObjectIdRules,
+  validate,
+} = require('./post.validator');
+const postController = require('./post.controller');
+
 const router = express.Router();
 
 /*
- * @route    GET api/posts
- * @desc     Returns list of all Posts
- * @access   Public
+ * @route    POST api/posts
+ * @desc     Create a new post
+ * @access   Private
  */
-router.get('/', (req, res) => res.send('Posts Route'));
+router.post('/', authMiddleware, postCreationRules(), validate, postController.createPost);
+
+/*
+ * @route    GET api/posts
+ * @desc     Get all posts
+ * @access   Private
+ */
+router.get('/', authMiddleware, postController.getAllPosts);
+
+/*
+ * @route    GET api/posts/:id
+ * @desc     Get single post by post id
+ * @access   Private
+ */
+router.get('/:id', authMiddleware, mongooseObjectIdRules(), validate, postController.getPostById);
+
+/*
+ * @route    DELETE api/posts/:id
+ * @desc     Delete single post by post id
+ * @access   Private
+ */
+router.delete('/:id', authMiddleware, mongooseObjectIdRules(), validate, postController.deletePostById);
 
 module.exports = router;
