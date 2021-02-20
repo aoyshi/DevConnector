@@ -1,7 +1,7 @@
 const express = require('express');
 
 const authMiddleware = require('../../../middleware/auth');
-const { 
+const {
   postCreationRules,
   mongooseObjectIdRules,
   validate,
@@ -37,5 +37,19 @@ router.get('/:id', authMiddleware, mongooseObjectIdRules(), validate, postContro
  * @access   Private
  */
 router.delete('/:id', authMiddleware, mongooseObjectIdRules(), validate, postController.deletePostById);
+
+/*
+ * @route    POST api/posts/:id/likes
+ * @desc     Like a post by id
+ * @access   Private
+ */
+router.post('/:id/likes', authMiddleware, mongooseObjectIdRules(), validate, postController.likePostById);
+
+/*
+ * @route    DELETE api/posts/:id/likes
+ * @desc     Unlike a post by id
+ * @access   Private
+ */
+router.delete('/:id/likes', authMiddleware, mongooseObjectIdRules(), validate, postController.unlikePostById);
 
 module.exports = router;

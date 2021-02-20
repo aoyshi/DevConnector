@@ -37,9 +37,29 @@ const deletePostById = async (req, res) => {
   }
 };
 
+const likePostById = async (req, res) => {
+  try {
+    const likes = await postService.likePostById(req.params.id, req.user.id);
+    res.json(likes);
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
+const unlikePostById = async (req, res) => {
+  try {
+    const likes = await postService.unlikePostById(req.params.id, req.user.id);
+    res.json(likes);
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   deletePostById,
+  likePostById,
+  unlikePostById,
 };

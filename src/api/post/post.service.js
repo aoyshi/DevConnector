@@ -1,5 +1,6 @@
 const Post = require('./post.model');
 const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
+const ResourceAlreayExistsError = require('../../utils/errorHandling/exceptions/ResourceAlreadyExistsError');
 const AuthenticationError = require('../../utils/errorHandling/exceptions/AuthenticationError');
 const userService = require('../user/user.service');
 
@@ -45,9 +46,39 @@ const deletePostById = async (postId, currentUserId) => {
   post.remove();
 };
 
+const likePostById = async (postId, userId) => {
+  const post = await getPostById(postId);
+
+  // return if user already liked this post
+  if (post.likes.filter((like) => like.user.toString() === userId).length > 0) {
+    throw ResourceAlreayExistsError('post like');
+  }
+
+  post.likes.unshift({ user: userId });
+  await post.save();
+
+  return post.likes;
+};
+
+const unlikePostById = async (postId, userId) => {
+  const post = await getPostById(postId);
+
+  // return if user never liked post to begin with
+  if (post.likes.filter((like) => like.user.toString() === userId).length === 0) {
+    throw ResourceAlreayExistsError('post unlike');
+  }
+
+  post.likes = post.likes.filter((like) => like.user.toString() !== userId);
+  await post.save();
+
+  return post.likes;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   deletePostById,
+  likePostById,
+  unlikePostById,
 };

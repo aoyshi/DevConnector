@@ -138,7 +138,7 @@ const deleteEducation = async (eduId, profile) => {
   await updatedProfile.save();
 };
 
-const getGithubRepos = async (username, res) => {
+const getGithubRepos = async (username) => {
   const uri = `https://api.github.com/users/${username}/repos?pre_page=1&sort=created:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`;
   const headers = { 'user-agent': 'node.js' };
 
