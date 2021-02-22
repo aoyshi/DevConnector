@@ -1,6 +1,6 @@
 const profileService = require('./profile.service');
 const userService = require('../user/user.service');
-const errorHandler = require('../../utils/errorHandling/errorHandler.js');
+const errorHandler = require('../../helpers/errorHandling/errorHandler.js');
 
 const getCurrentProfile = async (req, res) => {
   try {
@@ -42,7 +42,6 @@ const deleteEverything = async (req, res) => {
   try {
     await profileService.deleteProfileByUserId(req.user.id);
     await userService.deleteUser(req.user.id);
-    // TODO: delete user's POSTS
     res.status(200).json({ msg: 'Deleted current user profile.' });
   } catch (err) {
     errorHandler(res, err);
@@ -73,8 +72,7 @@ const deleteExperience = async (req, res) => {
 
 const createEducation = async (req, res) => {
   try {
-    const profile = await profileService.getProfileByUserId(req.user.id);
-    const updatedProfile = await profileService.createEducation(req, profile);
+    const updatedProfile = await profileService.createEducation(req);
     res.status(201).json({ updatedProfile });
   } catch (err) {
     errorHandler(res, err);

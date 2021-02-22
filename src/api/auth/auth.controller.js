@@ -2,8 +2,8 @@ const bcrypt = require('bcryptjs');
 
 const userService = require('../user/user.service');
 const authHelper = require('./auth.helper');
-const errorHandler = require('../../utils/errorHandling/errorHandler.js');
-const AuthenticationError = require('../../utils/errorHandling/exceptions/AuthenticationError');
+const errorHandler = require('../../helpers/errorHandling/errorHandler.js');
+const AuthenticationError = require('../../helpers/errorHandling/exceptions/AuthenticationError');
 
 const matchPassword = async (user, password) => {
   const isMatch = await bcrypt.compare(password, user.password);
