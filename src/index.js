@@ -1,6 +1,8 @@
+const path = require('path');
 const express = require('express');
 const connectDb = require('../database/mongoDb');
 
+const logger = require('../logger/winston.logger')(path.basename(__filename));
 const userRoute = require('./api/user/user.route');
 const authRoute = require('./api/auth/auth.route');
 const profileRoute = require('./api/profile/profile.route');
@@ -24,5 +26,5 @@ app.use('/api/posts', postRoute);
 app.use('/api/profiles', profileRoute);
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
+  logger.info(`Server listening on port ${PORT}...`);
 });
