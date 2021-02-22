@@ -5,10 +5,9 @@ const authMiddleware = require('../../../middleware/auth.js');
 const {
   profileCreationRules,
   experienceCreationRules,
-  mongooseObjectIdRules,
   educationCreationRules,
-  validate,
 } = require('./profile.validator');
+const { mongooseObjectIdRules, validate } = require('../../helpers/validation/validation.helper');
 
 const router = express.Router();
 

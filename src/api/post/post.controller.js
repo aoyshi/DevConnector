@@ -1,5 +1,5 @@
 const postService = require('./post.service');
-const errorHandler = require('../../utils/errorHandling/errorHandler');
+const errorHandler = require('../../helpers/errorHandling/errorHandler');
 
 const createPost = async (req, res) => {
   try {

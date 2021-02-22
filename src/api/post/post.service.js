@@ -1,14 +1,7 @@
 const Post = require('./post.model');
-const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
-const ResourceAlreayExistsError = require('../../utils/errorHandling/exceptions/ResourceAlreadyExistsError');
-const AuthenticationError = require('../../utils/errorHandling/exceptions/AuthenticationError');
+const { verifyResourceExists, verifyResourceUnique } = require('../../helpers/errorHandling/common/resourceChecker');
+const AuthenticationError = require('../../helpers/errorHandling/exceptions/AuthenticationError');
 const userService = require('../user/user.service');
-
-const verifyResourceExists = (obj, name) => {
-  if (!obj) {
-    throw ResourceNotFoundError(name);
-  }
-};
 
 const createPost = async (req) => {
   const user = await userService.getUserById(req.user.id);
@@ -51,7 +44,7 @@ const likePost = async (postId, userId) => {
 
   // return if user already liked this post
   if (post.likes.filter((like) => like.user.toString() === userId).length > 0) {
-    throw ResourceAlreayExistsError('post like');
+    verifyResourceUnique(true, 'post like');
   }
 
   post.likes.unshift({ user: userId });

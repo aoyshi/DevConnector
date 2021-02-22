@@ -1,6 +1,6 @@
 const userService = require('./user.service.js');
 const authHelper = require('../auth/auth.helper.js');
-const errorHandler = require('../../utils/errorHandling/errorHandler.js');
+const errorHandler = require('../../helpers/errorHandling/errorHandler.js');
 
 const getCurrentUser = async (req, res) => {
   try {

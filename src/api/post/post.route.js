@@ -1,13 +1,8 @@
 const express = require('express');
 
 const authMiddleware = require('../../../middleware/auth');
-const {
-  postCreationRules,
-  mongooseObjectIdRules,
-  commentCreationRules,
-  commentDeletionRules,
-  validate,
-} = require('./post.validator');
+const { postCreationRules, commentCreationRules } = require('./post.validator');
+const { mongooseObjectIdRules, validate } = require('../../helpers/validation/validation.helper');
 const postController = require('./post.controller');
 
 const router = express.Router();
@@ -59,13 +54,25 @@ router.delete('/:id/likes', authMiddleware, mongooseObjectIdRules(), validate, p
  * @desc     Create comment for a post
  * @access   Private
  */
-router.post('/:id/comments', authMiddleware, [mongooseObjectIdRules(), commentCreationRules()], validate, postController.createComment);
+router.post(
+  '/:id/comments',
+  authMiddleware,
+  [mongooseObjectIdRules(), commentCreationRules()],
+  validate,
+  postController.createComment,
+);
 
 /*
  * @route    DELETE api/posts/:id/likes
  * @desc     Unlike a post by id
  * @access   Private
  */
-router.delete('/:postId/comments/:commentId', authMiddleware, commentDeletionRules(), validate, postController.deleteComment);
+router.delete(
+  '/:postId/comments/:commentId',
+  authMiddleware,
+  [mongooseObjectIdRules('postId'), mongooseObjectIdRules('commentId')],
+  validate,
+  postController.deleteComment,
+);
 
 module.exports = router;

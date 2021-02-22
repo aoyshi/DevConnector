@@ -2,13 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const Profile = require('./profile.model.js');
-const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
-
-const verifyProfileExists = (profile) => {
-  if (!profile) {
-    throw ResourceNotFoundError('profile');
-  }
-};
+const { verifyResourceExists } = require('../../helpers/errorHandling/common/resourceChecker');
 
 const buildProfileFields = (req) => {
   const {
@@ -51,7 +45,7 @@ const upsertProfile = async (req) => {
 
 const getProfileByUserId = async (userId) => {
   const profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar']);
-  verifyProfileExists(profile);
+  verifyResourceExists(profile, 'profile');
   return profile;
 };
 
@@ -151,7 +145,9 @@ const getGithubRepos = async (username) => {
     const response = await axios.get(uri, headers);
     return response.data;
   } catch (err) {
-    if (err.response.status === 404) throw ResourceNotFoundError('github repo');
+    if (err.response.status === 404) {
+      verifyResourceExists(null, 'github repo');
+    }
     console.log(err);
   }
 };

@@ -2,28 +2,26 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 
 const User = require('./user.model');
-const ResourceNotFoundError = require('../../utils/errorHandling/exceptions/ResourceNotFoundError');
-
-const verifyUserExists = (user) => {
-  if (!user) {
-    throw ResourceNotFoundError('user');
-  }
-};
+const { verifyResourceExists, verifyResourceUnique } = require('../../helpers/errorHandling/common/resourceChecker');
 
 const getUserById = async (id) => {
   const user = await User.findById(id).select('-password');
-  verifyUserExists(user);
+  verifyResourceExists(user, 'user');
   return user;
 };
 
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ email });
-  verifyUserExists(user);
+  verifyResourceExists(user, 'user');
   return user;
 };
 
 const createUser = async (req) => {
   const { name, email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  verifyResourceUnique(user, 'user');
+
   const avatar = gravatar.url(email, {
     s: '200',
     r: 'pg',
@@ -31,14 +29,14 @@ const createUser = async (req) => {
   });
   const salt = await bcrypt.genSalt(10);
   const encryptedPassword = await bcrypt.hash(password, salt);
-  const user = new User({
+  const newUser = new User({
     name,
     email,
     password: encryptedPassword,
     avatar,
   });
-  await user.save();
-  return user;
+  await newUser.save();
+  return newUser;
 };
 
 const deleteUser = async (id) => {
