@@ -58,7 +58,7 @@ const unlikePost = async (postId, userId) => {
 
   // return if user never liked post to begin with
   if (post.likes.filter((like) => like.user.toString() === userId).length === 0) {
-    throw ResourceAlreayExistsError('post unlike');
+    verifyResourceUnique('post unlike');
   }
 
   post.likes = post.likes.filter((like) => like.user.toString() !== userId);

@@ -1,5 +1,8 @@
 const axios = require('axios');
 require('dotenv').config();
+const path = require('path');
+
+const logger = require('../../../logger/winston.logger')(path.basename(__filename));
 
 const Profile = require('./profile.model.js');
 const { verifyResourceExists } = require('../../helpers/errorHandling/common/resourceChecker');
@@ -137,6 +140,7 @@ const deleteEducation = async (eduId, userId) => {
   return profile;
 };
 
+// eslint-disable-next-line consistent-return
 const getGithubRepos = async (username) => {
   const uri = `https://api.github.com/users/${username}/repos?pre_page=1&sort=created:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`;
   const headers = { 'user-agent': 'node.js' };
@@ -148,7 +152,7 @@ const getGithubRepos = async (username) => {
     if (err.response.status === 404) {
       verifyResourceExists(null, 'github repo');
     }
-    console.log(err);
+    logger.error(err);
   }
 };
 

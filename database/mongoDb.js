@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
+const path = require('path');
+
+const logger = require('../logger/winston.logger')(path.basename(__filename));
 
 const dbUri = process.env.MONGO_URI;
 
@@ -11,9 +14,9 @@ const connectDb = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log('Successfully connected to MongoDB!');
+    logger.info('Successfully connected to MongoDB!');
   } catch (err) {
-    console.log(err.message);
+    logger.error(err);
   }
 };
 
