@@ -7,7 +7,7 @@ export const Landing = () =>
       <div className="landing-inner">
         <h1 className="x-large">Developer Connector</h1>
         <p className="lead">
-          Coding doesn't have to be an individual sport. Connect with fellow developers. Share your ideas and resumes.
+          Coding doesn't have to be an individual sport. Connect with fellow developers. Share your ideas and portfolios.
         </p>
         <div className="buttons">
           <Link to='/register' className="btn btn-primary">
