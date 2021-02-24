@@ -1,7 +1,8 @@
 const path = require('path');
 const express = require('express');
-const connectDb = require('../database/mongoDb');
+const cors = require('cors');
 
+const connectDb = require('../database/mongoDb');
 const logger = require('../logger/winston.logger')(path.basename(__filename));
 const userRoute = require('./api/user/user.route');
 const authRoute = require('./api/auth/auth.route');
@@ -16,6 +17,7 @@ connectDb();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Define Routes
 app.get('/', (req, res) => res.send('API Running...'));
