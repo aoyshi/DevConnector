@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
     const user = await userService.createUser(req);
     const token = authHelper.createJwtToken(user);
 
-    res.status(201).json({ user, token });
+    res.status(201).json({ token });
   } catch (err) {
     errorHandler(res, err);
   }
