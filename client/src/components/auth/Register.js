@@ -44,7 +44,7 @@ const Register = ({ setAlert }) => {
   };
 
   return (
-    <>
+    <Fragment>
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user" />
@@ -104,7 +104,7 @@ const Register = ({ setAlert }) => {
         {' '}
         <Link to="/login">Sign In</Link>
       </p>
-    </>
+    </Fragment>
   );
 };
 
