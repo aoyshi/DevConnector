@@ -33,7 +33,7 @@ export const Login = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
         <i className="fas fa-user" />
@@ -68,6 +68,6 @@ export const Login = () => {
         {' '}
         <Link to="/register">Sign Up</Link>
       </p>
-    </>
+    </Fragment>
   );
 };
