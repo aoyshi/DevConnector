@@ -13,7 +13,7 @@ import Alert from './components/layout/Alert';
 const App = () => (
   <Provider store={store}>
     <Router>
-      <>
+      <Fragment>
         <Navbar />
         <Route exact path="/" component={Landing} />
         <section className="container">
@@ -23,7 +23,7 @@ const App = () => (
             <Route exact path="/register" component={Register} />
           </Switch>
         </section>
-      </>
+      </Fragment>
     </Router>
   </Provider>
 );
