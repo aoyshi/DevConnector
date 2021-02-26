@@ -1,28 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const Navbar = () =>
+export const Navbar = () => (
   <nav className="navbar bg-dark">
     <h1>
-      <Link to='/'>
-        <i className="fas fa-code" /> DevConnector
+      <Link to="/">
+        <i className="fas fa-code" />
+        {' '}
+        DevConnector
       </Link>
     </h1>
     <ul>
       <li>
-        <Link to='/'> 
+        <Link to="/">
           Developers
         </Link>
       </li>
       <li>
-        <Link to='/register'> 
+        <Link to="/register">
           Register
         </Link>
       </li>
       <li>
-        <Link to='/login'> 
+        <Link to="/login">
           Login
         </Link>
       </li>
     </ul>
   </nav>
+);
