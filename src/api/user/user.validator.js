@@ -6,10 +6,7 @@ const userCreationRules = () => [
     .withMessage('Name is required.')
     .bail()
     .isLength({ min: 5, max: 50 })
-    .withMessage('Name must be between 5 and 50 characters.')
-    .bail()
-    .isAlphanumeric()
-    .withMessage('Name can only be alphanumeric.'),
+    .withMessage('Name must be between 5 and 50 characters.'),
   body('email').trim()
     .not().isEmpty()
     .withMessage('Email is required')
