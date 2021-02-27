@@ -11,7 +11,7 @@ const getHttpCode = (errName) => {
 
 const errorHandler = (res, err) => {
   logger.error(`${err.name}: ${err.message} \n[${err.stack}]`);
-  res.status(getHttpCode(err.name)).json(err.message);
+  res.status(getHttpCode(err.name)).json({ errors: [{ msg: err.message }] });
 };
 
 module.exports = errorHandler;
