@@ -5,7 +5,7 @@ const errorHandler = require('../../helpers/errorHandling/errorHandler.js');
 const getCurrentProfile = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.user.id);
-    res.status(200).json({ profile });
+    res.status(200).send(profile);
   } catch (err) {
     errorHandler(res, err);
   }
