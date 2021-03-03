@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { getCurrentProfileAction } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
+import { DashboardActions } from './DashboardActions';
 
 const Dashboard = ({
   profile: { profile, loading },
@@ -22,7 +23,7 @@ const Dashboard = ({
       Welcome { currentUser && currentUser.name }
     </p>
     { profile !== null ? 
-      <Fragment>Your profile will be displayed shortly</Fragment> :
+      <DashboardActions /> :
       <Fragment>
         <p>You have not set up your profile yet.</p>
         <Link to="/create-profile" className="btn btn-primary my-1">
