@@ -28,9 +28,6 @@ const educationCreationRules = () => [
   body('degree').trim()
     .not().isEmpty()
     .withMessage('Degree is required'),
-  body('fieldOfStudy').trim()
-    .not().isEmpty()
-    .withMessage('Field of study is required'),
   body('from').trim()
     .not().isEmpty()
     .withMessage('From Date is required'),

@@ -12,7 +12,7 @@ const AddEducation = ({ addEducation, history }) => {
     fieldOfStudy: '',
     from: '',
     to: '',
-    current: '',
+    current: false,
     description: '',
   });
 

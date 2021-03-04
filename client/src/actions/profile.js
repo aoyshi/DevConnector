@@ -42,6 +42,8 @@ export const createProfileAction = (formData, history, edit = false) => async di
       history.push('/dashboard');
     }
   } catch (err) {
+    console.log("hey")
+    console.log(err)
     const { errors } = err.response.data;
     if(errors) {
       errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
@@ -69,6 +71,8 @@ export const addExperience = (formData, history) => async dispatch => {
 
     history.push('/dashboard');
   } catch (err) {
+    console.log("hello")
+    console.log(err)
     const { errors } = err.response.data;
     if(errors) {
       errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
