@@ -12,7 +12,7 @@ const Dashboard = ({
   currentUser,
   getCurrentProfileAction,
 }) => {
-  useEffect(() => getCurrentProfileAction(), []);
+  useEffect(() => getCurrentProfileAction(), [getCurrentProfileAction]);
 
   return (loading && profile===null) ? 
   <Spinner /> :
