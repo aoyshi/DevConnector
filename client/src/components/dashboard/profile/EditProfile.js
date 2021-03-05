@@ -25,7 +25,7 @@ const EditProfile = ({ getCurrentProfileAction, profile: { loading, profile }, c
         instagram: loading || !profile.social ? '' : profile.social.instagram,
       })
     },
-    [loading],
+    [loading, getCurrentProfileAction, profile],
   );
 
   const [formData, setFormData] = useState({

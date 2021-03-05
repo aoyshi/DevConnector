@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-export const DashboardActions = () => {
+const DashboardActions = () => {
   return (
     <Fragment class="dash-buttons">
       <Link to="/edit-profile" class="btn btn-light">
@@ -18,5 +18,6 @@ export const DashboardActions = () => {
       </Link>
     </Fragment>
   )
-}
+};
 
+export default DashboardActions;
