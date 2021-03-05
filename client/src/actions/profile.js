@@ -42,8 +42,6 @@ export const createProfileAction = (formData, history, edit = false) => async di
       history.push('/dashboard');
     }
   } catch (err) {
-    console.log("hey")
-    console.log(err)
     const { errors } = err.response.data;
     if(errors) {
       errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
@@ -71,8 +69,6 @@ export const addExperience = (formData, history) => async dispatch => {
 
     history.push('/dashboard');
   } catch (err) {
-    console.log("hello")
-    console.log(err)
     const { errors } = err.response.data;
     if(errors) {
       errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
@@ -92,7 +88,6 @@ export const addEducation = (formData, history) => async dispatch => {
   };
   try {
     const res = await axios.post('/api/profiles/educations', formData, config);
-    console.log(res.data)
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
