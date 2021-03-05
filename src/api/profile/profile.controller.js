@@ -52,8 +52,8 @@ const deleteEverything = async (req, res) => {
 
 const createExperience = async (req, res) => {
   try {
-    const profile = await profileService.createExperience(req);
-    res.status(201).json({ profile });
+    const updatedProfile = await profileService.createExperience(req);
+    res.status(201).send(updatedProfile);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -73,7 +73,7 @@ const deleteExperience = async (req, res) => {
 const createEducation = async (req, res) => {
   try {
     const updatedProfile = await profileService.createEducation(req);
-    res.status(201).json({ updatedProfile });
+    res.status(201).send(updatedProfile);
   } catch (err) {
     errorHandler(res, err);
   }
