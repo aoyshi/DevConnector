@@ -62,7 +62,7 @@ const createExperience = async (req, res) => {
 const deleteExperience = async (req, res) => {
   try {
     const updatedProfile = await profileService.deleteExperience(req.params.id, req.user.id);
-    res.status(201).json({ updatedProfile });
+    res.status(201).send(updatedProfile);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -82,13 +82,14 @@ const createEducation = async (req, res) => {
 const deleteEducation = async (req, res) => {
   try {
     const updatedProfile = await profileService.deleteEducation(req.params.id, req.user.id);
-    res.status(201).json({ updatedProfile });
+    res.status(201).send(updatedProfile);
   } catch (err) {
     errorHandler(res, err);
   }
 };
 
 // GITHUB
+
 const getGithubRepos = async (req, res) => {
   try {
     const repos = await profileService.getGithubRepos(req.params.username);
