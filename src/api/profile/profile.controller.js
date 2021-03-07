@@ -14,7 +14,7 @@ const getCurrentProfile = async (req, res) => {
 const upsertProfile = async (req, res) => {
   try {
     const profile = await profileService.upsertProfile(req);
-    res.status(200).json({ profile });
+    res.status(200).send(profile);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -23,7 +23,7 @@ const upsertProfile = async (req, res) => {
 const getUserProfile = async (req, res) => {
   try {
     const profile = await profileService.getProfileByUserId(req.params.id);
-    res.status(200).json({ profile });
+    res.status(200).send(profile);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -32,7 +32,7 @@ const getUserProfile = async (req, res) => {
 const getAllProfiles = async (req, res) => {
   try {
     const profiles = await profileService.getAllProfiles();
-    res.status(200).json(profiles);
+    res.status(200).send(profiles);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -93,7 +93,7 @@ const deleteEducation = async (req, res) => {
 const getGithubRepos = async (req, res) => {
   try {
     const repos = await profileService.getGithubRepos(req.params.username);
-    res.status(200).json(repos);
+    res.status(200).send(repos);
   } catch (err) {
     errorHandler(res, err);
   }

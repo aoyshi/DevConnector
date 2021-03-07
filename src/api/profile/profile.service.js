@@ -142,7 +142,7 @@ const deleteEducation = async (eduId, userId) => {
 
 // eslint-disable-next-line consistent-return
 const getGithubRepos = async (username) => {
-  const uri = `https://api.github.com/users/${username}/repos?pre_page=1&sort=created:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`;
+  const uri = `https://api.github.com/users/${username}/repos?per_page=3&sort=created:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`;
   const headers = { 'user-agent': 'node.js' };
 
   try {

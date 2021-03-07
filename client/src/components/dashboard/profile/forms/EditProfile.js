@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { createProfileAction, getCurrentProfileAction } from '../../../actions/profile';
+import { createProfileAction, getCurrentProfileAction } from '../../../../actions/profile';
 import { connect } from 'react-redux';
 
 const EditProfile = ({ getCurrentProfileAction, profile: { loading, profile }, createProfileAction, history }) => {
@@ -25,7 +25,7 @@ const EditProfile = ({ getCurrentProfileAction, profile: { loading, profile }, c
         instagram: loading || !profile.social ? '' : profile.social.instagram,
       })
     },
-    [loading, getCurrentProfileAction, profile],
+    [loading, getCurrentProfileAction],
   );
 
   const [formData, setFormData] = useState({
@@ -73,7 +73,7 @@ const EditProfile = ({ getCurrentProfileAction, profile: { loading, profile }, c
   return (
     <Fragment>
       <h1 className="large text-primary">
-        Create Your Profile
+        Edit Your Profile
       </h1>
       <p className="lead">
         <i className="fas fa-user"></i>{' '}
