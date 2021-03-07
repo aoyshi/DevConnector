@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { createProfileAction } from '../../../actions/profile';
+import { createProfileAction } from '../../../../actions/profile';
 import { connect } from 'react-redux';
 
 const CreateProfile = ({ createProfileAction, history }) => {

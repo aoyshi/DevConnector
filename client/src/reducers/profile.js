@@ -1,8 +1,11 @@
 import {
   GET_PROFILE,
+  GET_PROFILES,
   UPDATE_PROFILE,
   PROFILE_ERROR,
   CLEAR_PROFILE,
+  GET_REPOS,
+  NO_REPOS,
 } from '../actions/types';
 
 const initialState = {
@@ -37,6 +40,23 @@ const profileReducer = (state = initialState, action) => {
         githubRepos: [],
         loading: false,
       }
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: payload,
+        loading: false,
+      }
+    case GET_REPOS:
+      return {
+        ...state,
+        githubRepos: payload,
+        loading: false,
+      }
+    case NO_REPOS:
+      return {
+        ...state,
+        githubRepos: [],
+      };
     default:
       return state;
   }
