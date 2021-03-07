@@ -14,6 +14,11 @@ const Navbar = ({ isAuthenticated, loading, logoutAction }) => {
         </Link>
       </li>
       <li>
+        <Link to="/posts">
+          <span>Posts</span>
+        </Link>
+      </li>
+      <li>
         <Link to="/dashboard">
           <i className="fas fa-user" />{' '}
           <span>Dashboard</span>
@@ -33,6 +38,11 @@ const Navbar = ({ isAuthenticated, loading, logoutAction }) => {
       <li>
         <Link to="/profiles">
           Developers
+        </Link>
+      </li>
+      <li>
+        <Link to="/posts">
+          <span>Posts</span>
         </Link>
       </li>
       <li>
