@@ -14,7 +14,8 @@ import GithubRepos from './GithubRepos';
 const Profile = ({ getProfileByUserId, match, profile: {profile, loading}, auth }) => {
   useEffect(
     () => getProfileByUserId(match.params.id),
-  [getProfileByUserId, match.params.id]);
+    [getProfileByUserId, match.params.id]
+  );
   return (
     <Fragment>
       <Link to="/profiles" className="btn btn-primary">Back To Profiles</Link>

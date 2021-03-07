@@ -13,7 +13,7 @@ const createPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await postService.getAllPosts();
-    res.json(posts);
+    res.send(posts);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -40,7 +40,7 @@ const deletePostById = async (req, res) => {
 const likePost = async (req, res) => {
   try {
     const likes = await postService.likePost(req.params.id, req.user.id);
-    res.json(likes);
+    res.send(likes);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -49,7 +49,7 @@ const likePost = async (req, res) => {
 const unlikePost = async (req, res) => {
   try {
     const likes = await postService.unlikePost(req.params.id, req.user.id);
-    res.json(likes);
+    res.send(likes);
   } catch (err) {
     errorHandler(res, err);
   }

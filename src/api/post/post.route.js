@@ -17,9 +17,9 @@ router.post('/', authMiddleware, postCreationRules(), validate, postController.c
 /*
  * @route    GET api/posts
  * @desc     Get all posts
- * @access   Private
+ * @access   Public
  */
-router.get('/', authMiddleware, postController.getAllPosts);
+router.get('/', postController.getAllPosts);
 
 /*
  * @route    GET api/posts/:id
