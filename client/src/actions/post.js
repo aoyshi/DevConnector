@@ -7,6 +7,8 @@ import {
   UPDATE_LIKES,
   CREATE_POST,
   GET_POST,
+  CREATE_COMMENT,
+  DELETE_COMMENT,
 } from './types';
 import { setAlert } from './alert';
 
@@ -108,6 +110,49 @@ export const createPostAction = (formData) => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: errors,
+    });
+  }
+};
+
+export const createCommentAction = (postId, formData) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.post(`/api/posts/${postId}/comments`, formData, config);
+    dispatch({
+      type: CREATE_COMMENT,
+      payload: res.data,
+    });
+    dispatch(setAlert('Comment created!', 'success'));
+  } catch (err) {
+    console.log('dsfdf')
+    console.log(err)
+    const { errors } = err.response.data;
+    if(errors) {
+      errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
+    }
+    dispatch({
+      type: POST_ERROR,
+      payload: errors,
+    });
+  }
+};
+
+export const deleteCommentAction = (postId, commentId) => async dispatch => {
+  try {
+    await axios.delete(`/api/posts/${postId}/comments/${commentId}`);
+    dispatch({
+      type: DELETE_COMMENT,
+      payload: commentId,
+    });
+    dispatch(setAlert('Comment Deleted', 'success'));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };

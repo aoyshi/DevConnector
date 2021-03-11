@@ -5,15 +5,14 @@ import { createPostAction } from '../../../actions/post';
 import { connect } from 'react-redux';
 
 const CreatePost = ({ createPostAction }) => {
-  const [ formData, setFormData ] = useState({
-    text: '',
-  });
+  const [ formData, setFormData ] = useState({ text: '' });
 
   const { text } = formData;
 
   const onSubmit = async (e) => {
     e.preventDefault();
     createPostAction(formData);
+    setFormData({ text: '' })
   };
 
   const onChange = (e) => setFormData({
