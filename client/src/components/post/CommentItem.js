@@ -7,11 +7,16 @@ import { connect } from 'react-redux';
 
 import { deleteCommentAction } from '../../actions/post';
 
-const CommentItem = ({ auth, comment: { _id, user, name, avatar, text, createdAt }, postId, deleteCommentAction }) => {
+const CommentItem = ({ 
+  auth,
+  comment: { _id, user, name, avatar, text, createdAt },
+  postId,
+  deleteCommentAction,
+}) => {
   return (
     <div class="post bg-white p-1 my-1">
       <div>
-        <Link to={`/profiles/${user}`}>
+        <Link to={`/profiles/users/${user}`}>
           <img
             class="round-img"
             src={ avatar }
