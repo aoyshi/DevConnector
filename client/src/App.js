@@ -11,6 +11,7 @@ import Register from './components/auth/Register';
 import Profiles from './components/profile/Profiles';
 import Profile from './components/profile/Profile';
 import Posts from './components/post/Posts';
+import Post from './components/post/Post';
 import Dashboard from './components/dashboard/Dashboard';
 import Alert from './components/layout/Alert';
 import CreateProfile from './components/dashboard/profile/forms/CreateProfile';
@@ -44,6 +45,7 @@ const App = () => {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/posts" component={Posts} />
+              <Route exact path="/posts/:id" component={Post} />
               <Route exact path="/profiles/users/:id" component={Profile} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/create-profile" component={CreateProfile} />

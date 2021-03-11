@@ -3,6 +3,8 @@ import {
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
+  CREATE_POST,
+  GET_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -16,6 +18,12 @@ const postReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_POST:
+      return {
+        ...state,
+        post: payload,
+        loading: false,
+      }
     case GET_POSTS:
       return {
         ...state,
@@ -38,6 +46,12 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: state.posts.filter((post) => post._id !== payload.postId),
+        loading: false,
+      }
+    case CREATE_POST:
+      return {
+        ...state,
+        posts: [ payload, ...state.posts],
         loading: false,
       }
     default:
