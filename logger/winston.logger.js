@@ -19,9 +19,6 @@ const logger = (filename) => createLogger({
   ),
   transports: [
     new transports.Console(),
-    new transports.File({
-      filename: '../logs/dev.log',
-    }),
   ],
 });
 
