@@ -22,7 +22,7 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   try {
     const post = await postService.getPostById(req.params.id);
-    res.json(post);
+    res.send(post);
   } catch (err) {
     errorHandler(res, err);
   }

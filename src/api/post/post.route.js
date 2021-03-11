@@ -24,9 +24,9 @@ router.get('/', postController.getAllPosts);
 /*
  * @route    GET api/posts/:id
  * @desc     Get single post by post id
- * @access   Private
+ * @access   Public
  */
-router.get('/:id', authMiddleware, mongooseObjectIdRules(), validate, postController.getPostById);
+router.get('/:id', mongooseObjectIdRules(), validate, postController.getPostById);
 
 /*
  * @route    DELETE api/posts/:id

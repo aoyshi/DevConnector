@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -22,12 +22,13 @@ const PostItem = ({
     comments,
     createdAt,
   },
+  showDiscussionBtn
 }) => {
   return (
     <div>
       <div className="post bg-white p-1 my-1">
         <div>
-          <Link to={`/profiles/users/${_id}`}>
+          <Link to={`/profiles/users/${user}`}>
             <img
               className="round-img"
               src={ avatar }
@@ -50,13 +51,15 @@ const PostItem = ({
           <button type="button" className="btn btn-light" onClick={() => !auth.loading && auth.isAuthenticated && removeLikeAction(_id)}>
             <i className="fas fa-thumbs-down"></i>
           </button>
-          <Link to={`/posts/${_id}`} className="btn btn-primary">
-            Discussion{' '}
-            { 
-              comments.length > 0 &&
-              <span className='comment-count'>{ comments.length }</span>
-            }
-          </Link>
+          { showDiscussionBtn && (
+              <Link to={`/posts/${_id}`} className="btn btn-primary">
+              Discussion{' '}
+              { 
+                comments.length > 0 &&
+                (<span className='comment-count'>{ comments.length }</span>)
+              }
+              </Link>
+          )}
           { 
             !auth.loading && auth.isAuthenticated && user===auth.user._id && (
               <button type="button" className="btn btn-danger" onClick={() => deletePostAction(_id)}>
@@ -68,6 +71,10 @@ const PostItem = ({
       </div>
     </div>
   )
+};
+
+PostItem.defaultProps = {
+  showDiscussionBtn: true,
 };
 
 PostItem.propTypes = {
