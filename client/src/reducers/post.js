@@ -5,6 +5,8 @@ import {
   DELETE_POST,
   CREATE_POST,
   GET_POST,
+  CREATE_COMMENT,
+  DELETE_COMMENT,
 } from '../actions/types';
 
 const initialState = {
@@ -51,8 +53,28 @@ const postReducer = (state = initialState, action) => {
     case CREATE_POST:
       return {
         ...state,
-        posts: [ payload, ...state.posts],
+        posts: [ payload, ...state.posts ],
         loading: false,
+      }
+    case CREATE_COMMENT:
+      return {
+        ...state,
+        post: { 
+          ...state.post,
+          comments: payload
+        },
+        loading: false,
+      }
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(
+            comment => comment._id !== payload
+          )
+        },
+        loading: false
       }
     default:
       return state;

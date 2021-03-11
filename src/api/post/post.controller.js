@@ -58,7 +58,7 @@ const unlikePost = async (req, res) => {
 const createComment = async (req, res) => {
   try {
     const comments = await postService.createComment(req);
-    res.json(comments);
+    res.send(comments);
   } catch (err) {
     errorHandler(res, err);
   }
@@ -67,7 +67,7 @@ const createComment = async (req, res) => {
 const deleteComment = async (req, res) => {
   try {
     const comments = await postService.deleteComment(req.params.postId, req.params.commentId, req.user.id);
-    res.json(comments);
+    res.send(comments);
   } catch (err) {
     errorHandler(res, err);
   }

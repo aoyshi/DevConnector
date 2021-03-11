@@ -63,8 +63,8 @@ router.post(
 );
 
 /*
- * @route    DELETE api/posts/:id/likes
- * @desc     Unlike a post by id
+ * @route    DELETE api/posts/:postId/comments/:commentId
+ * @desc     Delete comment from a post
  * @access   Private
  */
 router.delete(
